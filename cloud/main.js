@@ -7,11 +7,11 @@ var async=require("async");
  * - the return 'callback' method signature is 'callback (error, data)', where 'data' is a JSON object.
 */
 var count=0;
-function _genThumbnailFunc(){
+function _genThumbnailFunc(fileName){
     return function (cb){
         count++;
         console.log("Start time:"+count);
-        thumb.generateFromFilePath(__dirname+"/test.pdf","/tmp/test.png",function(){
+        thumb.generateFromFilePath(fileName,"/tmp/test.png",function(){
             console.log("finished time:"+count);
             cb(null,{"done":"ok"});
         });
@@ -35,7 +35,10 @@ exports.thumbgen=function(params,cb){
         genThumbnailFunc.push(_genThumbnailFunc());
     }
     console.log("ready to go");
-    async.series(genThumbnailFunc,function(){
-        cb(null,{"done":"ok"});
-    });
+    setTimeout(function(){
+        async.series(genThumbnailFunc,function(){
+            cb(null,{"done":"ok"});
+        });    
+    },5000);
+    
 }
