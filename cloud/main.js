@@ -32,7 +32,7 @@ exports.thumbgen=function(params,cb){
     console.log("called");
     count=0;
     for (var i=0;i<100;i++){
-        genThumbnailFunc.push(_genThumbnailFunc());
+        genThumbnailFunc.push(_genThumbnailFunc(__dirname+"/test.pdf"));
     }
     console.log("ready to go");
     setTimeout(function(){
